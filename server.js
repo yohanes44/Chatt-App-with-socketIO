@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const http = require("http");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 const socketIo = require('socket.io')
 const formatMessage = require('./public/utils/messages');
 const { joinUser, getUser, userLeave, getRoomUsers} = require("./public/utils/users");
@@ -14,6 +14,10 @@ const io = socketIo(server);
 
 app.use(express.static(path.join(__dirname, 'public')))
 const botName = "ወሬ";
+
+app.get("/", (req, res)=>{
+    res.sendFile(__dirname + "/public/index.html")
+})
 
 io.on('connection', socket =>{
    
